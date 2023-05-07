@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h3>{{ observed_user['username'] }}</h3>
+        <h4>{{ display_name(observed_user) }}</h4>
+
+        {% if observed_user['username'] != user and not is_friend %}
+            <form action="/friend_request" method="POST">
+                <input type="hidden" name="friend" value="{{ observed_user['username'] }}" />
+                <input type="submit" name="f_request" value="Send Friend Request" />
+            </form>
+        {% endif %}
+
+         {% if observed_user['username'] != user and not following %}
+            <form action="/follow" method="POST">
+                <input type="hidden" name="friend" value="{{ observed_user['username'] }}" />
+                <input type="submit" value="Follow" />
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

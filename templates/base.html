@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light base-menu">
+        <div class="menu-section">
+            <a class="fatear-text logo-text" href="/browse">FatEar</a>
+        </div>
+        {% if user is not none %}
+            <div class="menu-section">
+                <a class="fatear-text" href="/">Feed</a>
+                <a class="fatear-text" href="/logout">Logout</a>
+                <a class="fatear-text" href="{{ url_for('profile', username=user) }}">{{ user }}</a>
+            </div>
+        {% else %}
+            <div class="menu-section">
+                <a class="fatear-text" href="/login">Login</a>
+                <br>
+                <a class="fatear-text" href="/register">Register</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        {% endif %}
+    </nav>
+
+    <div>
+        <div class="home">
+            <div class="side-bar">
+                {% if on_browse or not user %}
+                    <div class="side-bar-header">
+                        <h3>Search</h3>
+                    </div>
+
+                    <div class="browse-header-item">
+                        <form action="/browse" method="GET">
+                            <input
+                                    type="text"
+                                    name="search_val"
+                                    value="{{ not_none(search_inpt_val(usr_input, 'search_val')) }}">
+                            <select name="artist">
+                                <option
+                                        {{ val_selected("0", search_inpt_val(usr_input, 'artist')) }}
+                                        value="0">
+                                    -- Select Artist --
+                                </option>
+                                {% for artist in session.get('artist_list') %}
+                                    <option
+                                            value={{ artist['artist_id'] }}
+                                            {{ val_selected(artist['artist_id'], search_inpt_val(usr_input, 'artist')) }}>
+                                        {{ artist['artist_name'] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <select name="genre">
+                                <option
+                                        {{ val_selected("0", search_inpt_val(usr_input, 'genre')) }}
+                                        value="0">
+                                    -- Select Genre --
+                                </option>
+                                {% for genre in session.get('genre_list') %}
+                                    <option
+                                            value={{ genre['genre'] }}
+                                            {{ val_selected(genre['genre'], search_inpt_val(usr_input, 'genre')) }}>
+                                        {{ genre['genre'] }}
+                                    </option>
+                                {% endfor %}
+                            </select></br>
+                            <select name="stars">
+                                <option value="0">-- Min Rating (song) --</option>
+                                <option value="1" {{ val_selected('1', search_inpt_val(usr_input, 'stars')) }}>1</option>
+                                <option value="2" {{ val_selected('2', search_inpt_val(usr_input, 'stars')) }}>2</option>
+                                <option value="3" {{ val_selected('3', search_inpt_val(usr_input, 'stars')) }}>3</option>
+                                <option value="4" {{ val_selected('4', search_inpt_val(usr_input, 'stars')) }}>4</option>
+                                <option value="5" {{ val_selected('5', search_inpt_val(usr_input, 'stars')) }}>5</option>
+                            </select>
+                            <input type="submit" value = Search />
+                        </form>
+                        <form action="/clear_browse" method="GET">
+                            <input type="submit" value = Clear name="clear" />
+                        </form>
+                        <p style="margin-top:30px;font-size:15px;">
+                            *Click submit with no input to see a list of all songs order by artist, album, song title
+                        </p>
+                    </div>
+                {% else %}
+                        <div class="side-bar-header">
+                            <h3>Menu</h3>
+                        </div>
+
+                        <div class="menu">
+                            <div>
+                                <a href="/select_artist">Add Music</a>
+                            </div>
+                            <div>
+                                <a href="/people">People</a>
+                            </div>
+                            <div style="color:#767676;">
+                                <a>Create Playlist</a>
+                            </div>
+                        </div>
+                {% endif %}
+            </div>
+
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+{#    <div class="footer" style="background:black;width:100%">#}
+{##}
+{#    </div>#}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

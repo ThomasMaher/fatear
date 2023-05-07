@@ -1,0 +1,313 @@
+.base-menu {
+    display: flex;
+    justify-content: space-between;
+    height: 84px;
+    /*background: #101010;*/
+    background-color: black;
+}
+
+body {
+    color: white;
+    /*background-color: #272727;*/
+    background-color: black;
+    font-family: 'Alata';
+}
+
+h3 {
+    margin-top: 35px;
+    font-size: 2.2rem;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
+
+.menu-section {
+    display: flex;
+}
+
+a {
+    color: white;
+    text-decoration: underline;
+}
+
+.menu-section > a {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.fatear-text {
+    color: #01f7ff;
+    text-decoration: none;
+}
+
+.fatear-design {
+    background-color: #272727;
+    width: 80%;
+    text-align: center;
+    height: 45px;
+    border-radius: 34px;
+}
+
+.logo-text {
+    font-size: 37px;
+    font-weight: 700;
+    margin-left: 30%;
+}
+
+.middle-banner {
+    width: 80%;
+    justify-content: center;
+}
+
+.container {
+    max-width: none;
+}
+
+.home {
+    display: flex;
+}
+
+.side-bar {
+    width: 23%;
+    min-width: 0;
+    background-color: black;
+    padding: 25px;
+    text-align: center;
+    font-size: 22px;
+    height: 100vh;
+}
+
+.side-bar-header {
+    text-align: left;
+    padding-left: 10%;
+}
+
+.menu {
+    text-align: left;
+    padding-left: 15%;
+}
+
+.menu > * {
+    padding-top: 30px;
+}
+
+.main {
+    text-align: center;
+    padding: 15px;
+    width: 76%;
+    background-color: #272727;
+}
+
+.list-container {
+    width: 100%;
+}
+
+.list {
+    display: flex;
+    margin-left: 100px;
+}
+
+.list-header {
+    margin-top: 40px;
+}
+
+.list-item {
+    width: 225px;
+    text-align: left;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.note {
+    margin-top: 60px;
+}
+
+
+/*Form*/
+.form-columns {
+    display: flex;
+}
+.form-body {
+    text-align: left;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.form-section:first-child {
+    margin-right: 40px;
+}
+
+.fatear-line {
+    display: block;
+    height: 1.5px;
+    background: #a601ff;
+}
+
+.form-section {
+    margin-top: 30px;
+}
+
+input, select {
+    margin-top: 35px;
+}
+
+.info {
+    text-align: left;
+    width: 94%;
+    padding-left: 8%;
+    margin-top: 70px;
+}
+
+.info:last-child {
+    margin-bottom: 20px;
+}
+
+.info-body {
+    background: #101010;
+    height: 254px;
+    border-radius: 15px;
+    padding: 25px;
+    overflow: scroll;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.user-item {
+    width: 90%;
+    margin-left: 10%;
+    border-bottom: #a601ff solid 1px;
+    margin-top: 24px;
+}
+
+.timestamp-text {
+    font-size: 14px;
+    margin-top: 1px;
+}
+
+.song-reviewer {
+    width: 20%;
+    font-size: 18px;
+    font-weight: 100;
+    text-align: right;
+}
+
+.song-review-text {
+    margin-left: 22px;
+    background-color: #1b1a1a;
+    padding: 5px;
+    border-radius: 9px;
+    width: 100%;
+    font-size: 14px;
+    height: 135px;
+    overflow: scroll;
+}
+
+.user-info {
+    display: flex;
+    width: 100%;
+    padding-bottom: 7px;
+}
+
+.user-info > div {
+    width: 25%;
+    margin: auto;
+}
+
+.leave-review {
+    height: 125px;
+}
+
+.review-button {
+    height: 38px;
+    position: relative;
+    top: 71px;
+    left: 30px;
+}
+
+.rate {
+    text-align: center;
+    width: 100%;
+}
+
+.link-list {
+    padding-left: 6px;
+    border-left: 1px solid #01f7ff;
+}
+
+.link-list:first-child {
+    padding-left: 0;
+    border-left: none;
+}
+
+.track-list {
+    text-align: center;
+}
+
+.track-list-item {
+    margin-bottom: 0;
+    margin-top: 12px;
+}
+
+.error {
+    margin: 0;
+    text-align: center;
+    color: #9d0c0c;
+}
+
+.feed-body {
+    overflow: scroll;
+    padding: 14px;
+}
+
+.feed-content {
+    display: flex;
+    border: white solid 1px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    padding: 10px;
+    height: 250px;
+    overflow: scroll;
+}
+
+.feed-content > div:first-child {
+    width: 20%;
+    border-right: white solid 1px;
+    margin-bottom: 9px;
+    text-align: left;
+    font-siz: 14px;
+}
+
+.feed-content > div:last-child {
+    width: 80%;
+}
+
+.review-post {
+    margin-bottom:10px;
+    padding:10px;
+    text-align:left;
+}
+
+.rating-post {
+    margin-bottom:10px;
+    padding:10px;
+}
+
+.button {
+    margin: auto;
+    margin-left: 23px;
+    background: green;
+    padding: 5px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 79px;
+    text-align: center;
+    border: none;
+}
+
+.reject-button {
+    background: #a601ff;
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main song-form">
+        <h2 class="browse-header-item">{% block title %} Create/Select Artist {% endblock %}</h2>
+        <p>Select an artist from the dropdown to add songs by the artist or
+            fill in the form below to create a new artist</p>
+
+        {% for error in errors %}
+            <p class="error"><strong>Error:</strong> {{error}}</p></br>
+        {% endfor %}
+        <div class="form-body">
+            <form action="/select_artist" method="POST">
+                <h3>Select</h3>
+                <hl class="fatear-line"></hl>
+
+                <select name="artist_id">
+                    <option selected="selected" value="0">-- Select Artist --</option>
+                    {% for artist in artists %}
+                        <option value={{ artist['artist_id'] }}>{{ artist['artist_name'] }}</option>
+                    {% endfor %}
+                </select>
+
+                <h3>Create New</h3>
+                <hl class="fatear-line"></hl>
+                <div class="form-section">
+                    <input type="text" name="artist_name" placeholder="Artist Name (required)"/></br>
+                    <input type="text" name="fname" placeholder="First Name" style="margin-right:15px"/>
+                    <input type="text" name="lname" placeholder="Last Name"/></br>
+                    <p style="margin:18px 0 0 0;">
+                        Here is some space to fill in any interesting info on the artist. (Max 300 characters)
+                    </p></br>
+                    <textarea name="artist_bio" cols="50"></textarea></br>
+                    <input type="text" name="artist_url" placeholder="Website"/></br>
+                </div>
+
+                <div style="text-align:right;width:100%">
+                    <input type="submit" value="Submit and Add Songs" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

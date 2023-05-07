@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main feed">
+        <div class="info">
+            <div class="info-body">
+                {%  if friend_requests %}
+                    <h4>Pending Friend Requests (received by you):</h4>
+                    {% for request in friend_requests %}
+                        <div class="info-item user-item">
+                            <div class="user-info">
+                                <div class="">
+                                    <a class="fatear-text" href="{{ url_for('profile', username=request['username']) }}">
+                                        {{ request['username'] }}
+                                    </a>
+                                </div>
+                                <div>
+                                    {{ request['fname'] }}, {{ request['lname'] }}
+                                </div>
+                                <div class="timestamp-text">
+                                    {{ request['created_at'] }}
+                                </div>
+                                <form action="/friend_request" method="POST" style="display:flex;">
+                                    <input type="hidden" value="{{ request['username'] }}" name="friend" />
+                                    <input type="submit" class="button accept-button" value="Accept" name="f_request" />
+                                    <input type="submit" class="button reject-button" value="Reject" name="f_request" />
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4>No pending friend requests</h4>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="info-body">
+                {% if friends %}
+                    <h4>Your friends:</h4>
+                    {% for friend in friends %}
+                        <div class="info-item user-item">
+                            <div class="user-info">
+                                <div class="">
+                                    <a class="fatear-text" href="{{ url_for('profile', username=friend['username']) }}">
+                                        {{ friend['username'] }}
+                                    </a>
+                                </div>
+                                <div>
+                                    {{ friend['fname'] }}, {{ friend['lname'] }}
+                                </div>
+                                <div class="timestamp-text">
+                                    {{ friend['created_at'] }}
+                                </div>
+                                <div style="display:flex;">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4>You have no friends yet</h4>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="info-body">
+                {% if follows %}
+                    <h4>People you follow:</h4>
+                    {% for follow in follows %}
+                        <div class="info-item user-item">
+                            <div class="user-info">
+                                <div class="">
+                                    <a class="fatear-text" href="{{ url_for('profile', username=follow['username']) }}">
+                                        {{ follow['username'] }}
+                                    </a>
+                                </div>
+                                <div>
+                                    {{ follow['fname'] }}, {{ follow['lname'] }}
+                                </div>
+                                <div class="timestamp-text">
+                                    {{ follow['created_at'] }}
+                                </div>
+                                <div style="display:flex;">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4>You're not following anyone</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

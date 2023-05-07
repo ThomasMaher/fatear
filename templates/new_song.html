@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main song-form">
+        <h2 class="browse-header-item">{% block title %} Add Song {% endblock %}</h2>
+
+        <div class="form-body">
+            <p>Selected Artist: {{ artist['artist_name'] }}</p>
+
+            {% for error in errors %}
+                <p class="error"><strong>Error:</strong> {{error}}</p></br>
+            {% endfor %}
+            <form action="/add_song" method="POST">
+                <input type="hidden" name="artist_id" value="{{ artist['artist_id'] }}" />
+                {% if error %}
+                    <p class="error"><strong>Error:</strong> {{error}}</p>
+                {% endif %}
+                <h3>Song Details</h3>
+                <hl class="fatear-line"></hl>
+                <div class="form-columns">
+                    <div class="form-section">
+                        <input type="text" name="title" placeholder="Title" required/> </br>
+                        <input type="date" name="release_date" /></br>
+                        <input type="text" name="song_length" placeholder="Song Length in minutes (ex. 1.5)"/></br>
+                        <input type="text" name="song_url" placeholder="Song link"/></br>
+                    </div>
+
+                    <div class="form-section">
+{#                            Come back to this later#}
+                        <select name="genre">
+                            <option selected="selected" value="0">-- Select Genre --</option>
+                            {% for genre in genres %}
+                                <option value={{ genre['genre'] }}>{{ genre['genre'] }}</option>
+                            {% endfor %}
+                        </select></br>
+
+                        <input type="text" name="genre_new" placeholder="...Or create your own" />
+                    </div>
+                </div>
+
+                <h3>Album Details (optional)</h3>
+                <hl class="fatear-line"></hl>
+                <div class="form-section">
+                    <p>Choose an album by the selected artist...</p>
+                    <select name="album_id" style="margin-bottom:15px;">
+                        <option selected="selected" value="0">-- Album --</option>
+                        {% for album in albums %}
+                            <option value={{ album['album_id'] }}>{{ album['album_title'] }}</option>
+                        {% endfor %}
+                    </select>
+                    <hl class="fatear-line"></hl>
+
+                    <p>Or create a new album below</p>
+                    <input type="text" name="album_title" placeholder="Title"/> </br>
+                    <input type="date" name="release_date" /></br>
+                </div>
+
+                <div style="text-align:right;width:100%">
+                    <input type="submit" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

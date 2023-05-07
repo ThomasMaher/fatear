@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main feed">
+        <h2>Feed</h2>
+        {% for error in errors %}
+            {% if error %}
+                <p class="error"><strong class="error">Error:</strong> {{error}}</p></br>
+            {% endif %}
+        {% endfor %}
+        <div class="feed-body">
+            {% if feed %}
+                {% for content in feed %}
+                    <div class="feed-content">
+                        <div>
+                            <div style="display:flex;">
+                                <p style="margin-top:15px">
+                                    {% if content['post_type'] == 'review' %}
+                                        Review by:
+                                    {% elif content['post_type'] == 'rating' %}
+                                        Rating by:
+                                    {% elif content['post_type'] == 'new_song' %}
+                                        New song from:
+                                    {% endif %}
+                                </p>
+                                {% if content['post_type'] == 'new_song' %}
+                                    <p
+                                            class='fatear-text'
+                                            style="margin-left:8px;margin-top:14px;font-size:18px;">
+                                        {{ content['body'] }}
+                                    </p>
+                                {% else %}
+                                    <a class='fatear-text' style="margin-left:13px;font-size:30px;" href="{{ url_for('profile', username=content['username']) }}">
+                                        {{ content['username'] }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <p style="margin-top:32px">
+                                {{ content['post_date'] }}
+                            </p>
+                        </div>
+                        <div>
+                            {% if content['post_type'] == 'new_song' %}
+                                <p>New song by {{ content['body'] }} who you follow!</p>
+
+                                <a style="margin-left:13px;font-size:30px;" href="{{ url_for('song', song_id=content['entity_id']) }}">
+                                    {{ content['title'] }}
+                                </a>
+                            {% else %}
+                                <a href="{{ entity_url(content) }}">
+                                    {{ content['title'] }} {{ '(Song)' if content['entity_type'] == 'song' else '(Album)' }}
+                                </a>
+
+                                <p class="{{ 'review-post' if content['post_type'] == 'review' else 'rating-post' }}">
+                                    {{ content['body'] }} {{ 'Stars' if content['post_type'] == 'rating' else '' }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>
+                    Welcome to Fatear. There is nothing in your feed yet since you do not follow any other users.
+                    </br>You can start browsing music by clicking the logo in the top left or
+                    add new songs by clicking 'Create Music' in the menu.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{#<div class="friends-list">#}
+{#    <h3>Your Friends</h3>#}
+{#    {% for friend in friends %}#}
+{#        <h2>{{ friend['username'] }}</h2>#}
+{#        <p>{{ friend['fname'] }}</p>#}
+{#        <p>{{ friend['lname'] }}</p>#}
+{#    {% endfor %}#}
+{#</div>#}

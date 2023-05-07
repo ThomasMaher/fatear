@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main browse">
+        <h2 class="browse-header-item">{% block title %} Browse Music {% endblock %}</h2>
+
+        <h3>{{ header }}</h3>
+        {% for error in errors %}
+            <p class="error"><strong class="error">Error:</strong> {{error}}</p></br>
+        {% endfor %}
+        <div class="list-container">
+            <div class="list list-header">
+                <p class="list-item">Song</p>
+                <p class="list-item">Artist</p>
+                <p class="list-item">Album</p>
+                <p class="list-item">Your Rating</p>
+            </div>
+            {% for song in songs %}
+                <div class="list list-items">
+                    <a class="list-item" href="{{ url_for('song', song_id=song['song_id']) }}">
+                        {{ song['title'] }}
+                    </a>
+                    <a href="{{ url_for('artists', artist_id=song['artist_id']) }}" class="list-item">
+                        {{ song['artist_name'] }}
+                    </a>
+                    <a href="{{ url_for('albums', album_id=song['album_id']) }}" class="list-item">
+                        {{ song['album_title'] }}
+                    </a>
+                    <p class="list-item">{{ song['stars'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <p class="note">* Some songs that are performed by multiple artists will appear twice. This is expected.</p>
+    </div>
+{% endblock %}

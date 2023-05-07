@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main song-page">
+        <h2>{% block title %} {{ song_data['title'] }} {% endblock %} (Song)</h2>
+        <p>{{ song_data['release_date'] }}</p>
+        </br>
+        {% if average_rating > 0 %}
+            <h5>Average rating: {{ average_rating }} stars</h5>
+        {% else %}
+            <h5>Average rating: No ratings yet</h5>
+        {% endif %}
+        <hr class="fatear-line" style="width:250px;" />
+
+        <div class="info">
+            <h5>Performed by:
+                {% for artist in artists %}
+                    <a href="{{ url_for('artists', artist_id=artist['artist_id']) }}" class="link-list">
+                        {{ artist['artist_name'] }}
+                    </a>
+                {% endfor %}
+            </h5>
+            <h5>Featured on:
+                {% for album in albums %}
+                    {% if album['album_id'] %}
+                        <a href="{{ url_for('albums', album_id=album['album_id']) }}" class="link-list">
+                            {{ album['album_title'] }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </h5>
+            <h5>Genres:
+                {% for genre in genres %}
+                    {% if genre['genre'] %}
+                        <a class="link-list">{{ genre['genre'] }}</a>
+                    {% endif %}
+                {% endfor %}
+            </h5>
+            <hr class="fatear-line" />
+        </div>
+
+
+        <div class="info">
+            {% for error in errors %}
+                <p class="error"><strong class="error">Error:</strong> {{error}}</p>
+            {% endfor %}
+            <div class="rate-and-review" style="display:flex;">
+                <div>
+                    <h4>Leave a review:</h4>
+                    <form action="{{ url_for('song_review', song_id=song_data['song_id']) }}" method="POST">
+                        <div style="display:flex;">
+                            <input type="hidden" value="{{ user }}" name="username">
+                            <input type="hidden" value="{{ song_data['song_id'] }}" name="song_id">
+                            <textarea name="review_text" cols="40" class="leave-review"></textarea></br>
+                            <input type="submit" value="Review" class="review-button" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="rate">
+                    <h4>Rate this song</h4>
+                    <form action="{{ url_for('song_rating', song_id=song_data['song_id']) }}" method="POST">
+                        <input type="hidden" value="{{ user }}" name="username">
+                        <input type="hidden" value="{{ song_data['song_id'] }}" name="song_id">
+                        <div>
+                            <input type="radio" name="stars" value="1" {{ rating_vals['one'] }}>
+                            <input type="radio" name="stars" value="2" {{ rating_vals['two'] }}>
+                            <input type="radio" name="stars" value="3" {{ rating_vals['three'] }}>
+                            <input type="radio" name="stars" value="4" {{ rating_vals['four'] }}>
+                            <input type="radio" name="stars" value="5" {{ rating_vals['five'] }}>
+                            </br>
+                            <input type="submit" value="Rate" class="rate-button" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="info song-review">
+            <h4>Other Reviews:</h4>
+            <hr class="fatear-line" />
+            {% if reviews %}
+                <div class="info-body">
+                    {% for review in reviews %}
+                        <div class="info-item">
+                            <div class="song-reviewer">
+                                <a class="fatear-text" href="{{ url_for('profile', username=review['username']) }}">
+                                    {{ review['username'] }}
+                                </a>
+                            </div>
+                            <div class="song-review-text">
+                                <p>{{ review['review_text'] }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="info-body">
+                    <p>There are no reviews yet. Create your own with the input above.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

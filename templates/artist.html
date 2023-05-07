@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block user %}<a class="fatear-text" href="/profile">{{ user }}</a>{% endblock %}
+
+{% block content %}
+    <div class="main song-page">
+        <h2>{% block title %}{{ artist['artist_name'] }} {% endblock %}</h2>
+        <p>{{ artist['fname'] }} {{ artist['lname'] }}</p>
+        </br>
+        <hr class="fatear-line" style="width:250px;" />
+
+        {% for error in errors %}
+            <p class="error"><strong class="error">Error:</strong> {{error}}</p>
+        {% endfor %}
+
+        {% if is_fan %}
+            <p>You are following</p>
+        {% elif user %}
+            <form action="/fan" method="POST">
+                <input type="hidden" name="artist_id" value="{{ artist['artist_id'] }}">
+                <input type="hidden" name="username" value="{{ user }}">
+                <input type="submit" value="Become a fan" style="margin-left:30px;">
+            </form>
+        {% endif %}
+
+        <div class="info">
+            <div class="track-list">
+                <h5>
+                    Album List:
+                    {% for album in albums %}
+                        {% if album['album_id'] %}
+                            <p class="track-list-item"><a href="{{ url_for('albums', album_id=album['album_id']) }}">
+                                {{ album['album_title'] }}
+                            </a></p>
+                        {% endif %}
+                    {% endfor %}
+                </h5>
+            </div>
+        </div>
+    </div>
+{% endblock %}
